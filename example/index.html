@@ -1,0 +1,26 @@
+<html ng-app="YourApp">
+<head>
+	<script src="./js/angular.js"></script>
+	<script src="./js/angular-route.js"></script>
+	
+	<!-- Konfiguracja calej aplikacji -->
+	<script src="./js/app.js"></script>
+	
+	<!-- Kontrolery -->
+	<script src="./js/components/Functionality1/Functionality1Controller.js"></script>
+	<script src="./js/components/Functionality2/Functionality2Controller.js"></script>
+	<script src="./js/components/Functionality3/Functionality3Controller.js"></script>
+	
+</head>
+<body>
+	<div id="header" style="padding-bottom: 20px; border: 1px solid black;">
+		To jest naglowek strony<br />
+		Menu:&nbsp;
+		<a href="#/functionality1">Funkcjonalnosc1</a>&nbsp;
+		<a href="#/functionality2">Funkcjonalnosc2</a>&nbsp;
+		<a href="#/functionality3">Funkcjonalnosc3</a>
+	</div>
+	<div id="main-content" style="background-color: gray;">
+		<div ng-view></div>
+	</div>
+</body>
