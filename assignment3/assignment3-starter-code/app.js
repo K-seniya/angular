@@ -58,6 +58,9 @@ MenuSearchService.$inject = ['$http', 'ApiBasePath']
 
   function ItemsDescription () {
     var ddo = {
+      scope: {
+        item = "foundItems"
+      },
       template: 'name: {{item.name}}. description: {{item.description}}'
     };
     return ddo;

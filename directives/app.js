@@ -2,27 +2,60 @@
 'use strict';
 
 angular.module('ShoppingListDirectiveApp', [])
-.controller('ShoppingListController', ShoppingListController)
+.controller('ShoppingListController1', ShoppingListController1)
+.controller('ShoppingListDirectiveController', ShoppingListDirectiveController)
+// .controller('ShoppingListController2', ShoppingListController2)
 .factory('ShoppingListFactory', ShoppingListFactory)
-.directive('shoppingList', ShoppingListDirective);
+.directive('shoppingList', ShoppingList);
 
 
-function ShoppingListDirective() {
+function ShoppingList() {
   var ddo = {
     templateUrl: 'shoppingList.html',
     scope: {
       items: '<',
-      myTitle: '@title',
-      badRemove: '=',
+      title: '@',
       onRemove: '&'
     },
-    controller: ShoppingListDirectiveController,
-    controllerAs: 'list',
-    bindToController: true
+    controller: 'ShoppingListDirectiveController as list',
+    // controllerAs: 'list',
+    bindToController: true,
+    link: ShoppingListDirectiveLink
   };
 
   return ddo;
 }
+
+function ShoppingListDirectiveLink(scope, element, attrs, controller){
+  console.log("Link scope is ", scope);
+  console.log("Controller instance is: ", controller);
+  console.log("Element is: ", element);
+
+  scope.$watch('list.cookiesInList()', function(newValue, oldValue){
+    console.log("Old value: ", oldValue);
+    console.log("New value: ", newValue);
+
+    if(newValue === true){
+      displayCookieWarning();
+    }else{
+      removeCookieWarning();
+    }
+  });
+
+  function displayCookieWarning() {
+
+    var warningElement = element.find("div.error");
+    warningElement.slideDown(900);
+
+  }
+
+  function removeCookieWarning() {
+    var warningElement = element.find("div.error");
+    warningElement.slideUp(900);
+
+  }
+}
+
 
 
 function ShoppingListDirectiveController() {
@@ -31,18 +64,18 @@ function ShoppingListDirectiveController() {
   list.cookiesInList = function () {
     for (var i = 0; i < list.items.length; i++) {
       var name = list.items[i].name;
-      if (name.toLowerCase().indexOf("cookie") !== -1) {
+      if(name.toLowerCase().indexOf("cookie") !== -1){
         return true;
       }
     }
-
     return false;
   };
 }
 
 
-ShoppingListController.$inject = ['ShoppingListFactory'];
-function ShoppingListController(ShoppingListFactory) {
+// LIST #1 - controller
+ShoppingListController1.$inject = ['ShoppingListFactory'];
+function ShoppingListController1(ShoppingListFactory) {
   var list = this;
 
   // Use factory to create new shopping list service
@@ -61,10 +94,38 @@ function ShoppingListController(ShoppingListFactory) {
   };
 
   list.removeItem = function (itemIndex) {
-    console.log("'this' is: ", this);
-    this.lastRemoved = "Last item removed was " + this.items[itemIndex].name;
+    console.log("this is: ",this );
+    this.lastRemoved = "Last remowed " + this.items[itemIndex].name;
     shoppingList.removeItem(itemIndex);
-    this.title = origTitle + " (" + list.items.length + " items )";
+    list.title = origTitle + " (" + list.items.length + " items )";
+  };
+}
+
+
+// LIST #2 - controller
+ShoppingListController2.$inject = ['ShoppingListFactory'];
+function ShoppingListController2(ShoppingListFactory) {
+  var list = this;
+
+  // Use factory to create new shopping list service
+  var shoppingList = ShoppingListFactory(3);
+
+  list.items = shoppingList.getItems();
+
+  list.itemName = "";
+  list.itemQuantity = "";
+
+  list.addItem = function () {
+    try {
+      shoppingList.addItem(list.itemName, list.itemQuantity);
+    } catch (error) {
+      list.errorMessage = error.message;
+    }
+
+  };
+
+  list.removeItem = function (itemIndex) {
+    shoppingList.removeItem(itemIndex);
   };
 }
 
