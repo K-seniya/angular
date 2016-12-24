@@ -14,9 +14,10 @@ angular.module('ShoppingListComponentApp', [])
   }
 });
 
-ShoppingListComponentController.$inject = ['$scope', '$element']
-function ShoppingListComponentController($scope, $element) {
+ShoppingListComponentController.$inject = ['$element']
+function ShoppingListComponentController($element) {
   var $ctrl = this;
+  var totalItems;
 
   $ctrl.cookiesInList = function () {
     for (var i = 0; i < $ctrl.items.length; i++) {
@@ -34,28 +35,44 @@ function ShoppingListComponentController($scope, $element) {
   };
 
   $ctrl.$onInit = function () {
-    console.log("We are in $onInit()");
+    totalItems = 0;
   };
 
   $ctrl.$onChanges = function (changeObj) {
     console.log("Changes: ", changeObj);
   }
 
-  $ctrl.$postLink = function () {
-    $scope.$watch('$ctrl.cookiesInList()', function (newValue, oldValue) {
-      console.log($element);
-      if (newValue === true) {
-        // Show warning
+  $ctrl.$doCheck = function () {
+    if ($ctrl.items.length !== totalItems) {
+      console.log("# of items changed");
+      totalItems = $ctrl.items.length;
+      if ($ctrl.cookiesInList()) {
+        console.log("cookies detected");
         var warningElem = $element.find('div.error');
         warningElem.slideDown(900);
-      }
-      else {
-        // Hide warning
+      }else{
+        console.log("cookies moved out");
         var warningElem = $element.find('div.error');
         warningElem.slideUp(900);
       }
-    });
-  };
+    };
+  }
+
+  // $ctrl.$postLink = function () {
+  //   $scope.$watch('$ctrl.cookiesInList()', function (newValue, oldValue) {
+  //     console.log($element);
+  //     if (newValue === true) {
+  //       // Show warning
+  //       var warningElem = $element.find('div.error');
+  //       warningElem.slideDown(900);
+  //     }
+  //     else {
+  //       // Hide warning
+  //       var warningElem = $element.find('div.error');
+  //       warningElem.slideUp(900);
+  //     }
+  //   });
+  // };
 }
 
 
