@@ -1,4 +1,8 @@
-<li>
-  <items-description></items-description>
-  <button ng-click="menu.removeItem($index);">Remove Item</button>
-</li>
+<div ng-repeat="item in itemList.items">
+  <li>
+    <!-- name: {{item.name}}. description: {{item.description}} -->
+    <item-description></item-description>
+    <!-- <button ng-click="menu.removeItem($index);">Remove Item</button> -->
+      <button ng-click="itemList.removeItem({index: $index});">Remove Item</button>
+  </li>
+</div>

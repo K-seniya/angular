@@ -19,8 +19,12 @@
       <button ng-click="menu.getMatchedMenuItems()" class="btn btn-primary">Narrow It Down For Me!</button>
     </div>
 
-    <ol style="float:left">
+    <!-- <ol style="float:left">
       <found-items found-items="item" ng-repeat="item in menu.matchedItems"></<found-items>
+    </ol> -->
+
+    <ol style="float:left">
+      <found-items found-items="menu.matchedItems" on-remove="menu.removeItem(index)"></<found-items>
     </ol>
 
 
