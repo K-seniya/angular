@@ -33,7 +33,7 @@
       controller: 'MenuItemsController',
       controllerAs: 'menuItemsCtrl',
       resolve: {
-        menuItems: ['$stateParams, ''MenuService', function($stateParams, MenuService) {
+        menuItems: ['$stateParams', 'MenuService', function($stateParams, MenuService) {
           return MenuService.getMenuItems($stateParams.category);
         }]
       }
