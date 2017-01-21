@@ -9,6 +9,15 @@
           required
           minlength="4"
           ng-maxlength="10">
+          <span
+          ng-if="(signUpForm.firstname.$error.minlength || signUpForm.firstname.$error.required)
+          && signUpForm.firstname.$touched"> First name must be at least 4 characters long
+          </span>
+          <span
+          ng-if="signUpForm.firstname.$error.maxlength && signUpForm.firstname.$touched">
+          First name must not be longer than 10 characters
+          </span>
+
          <br>
 
           <input type="text" name="secondname" placeholder="Second name"
@@ -16,16 +25,42 @@
             required
             minlength="4"
             ng-maxlength="10">
+            <span
+            ng-if="(signUpForm.secondname.$error.minlength || signUpForm.secondname.$error.required)
+            && signUpForm.secondname.$touched"> Second name must be at least 4 characters long
+            </span>
+            <span
+            ng-if="signUpForm.secondname.$error.maxlength && signUpForm.secondname.$touched">
+            Second name must not be longer than 10 characters
+            </span>
             <br>
 
             <input type="email" name="email" placeholder="Email"
               ng-model="reg.user.email"
               required>
+              <span ng-if="signUpForm.email.$invalid && signUpForm.email.$touched">
+                Must be a valid email address: handle@domain format
+              </span>
               <br>
 
               <input type="text" name="phone" placeholder="Phone ###-###-####"
                 ng-model="reg.user.phone"
                 pattern="(\d{3})-(\d{3})-(\d{4})">
+                <span ng-if="signUpForm.phone.$invalid && signUpForm.phone.$touched">
+                  Phone must be in the format ###-###-####.
+                </span>
+                <br>
+
+                <input type="text" name="menuItem" placeholder="Favorite dish code"
+                  ng-model="reg.user.menuItem" required>
+                  <span ng-if="signUpForm.menuItem.$invalid && signUpForm.phone.$touched">
+                    Provide favorite dish code
+                  </span>
+                  <br>
+
+                  <button
+                    ng-disabled="signUpForm.$invalid"
+                    ng-click="signUpCtrl.submit(reg.user)">Submit</button>
 
       </form>
   </fieldset>
