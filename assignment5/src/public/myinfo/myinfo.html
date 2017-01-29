@@ -1,3 +1,7 @@
 <div class="container">
-<h1> my info </h1>
+<h1 ng-if="!myInfoCtrl.isUserRegistered">
+  <a ui-sref="public.signup">Sign up Now!</a>
+  </h1>
+  <div ng-if="myInfoCtrl.isUserRegistered">
+  {{myInfoCtrl.userData}}</div>
 </div>

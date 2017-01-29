@@ -4,18 +4,21 @@
   angular.module('public')
   .controller('SignUpController',SignUpController);
 
-  SignUpController.$inject = ['MenuService']
-  function SignUpController(menuService) {
+  SignUpController.$inject = ['MenuService', 'MyInfoService']
+  function SignUpController(menuService, myInfoService) {
     var $ctrl = this;
 
     $ctrl.submit = function (userData) {
-      console.log("submit fired. user data -   ", userData);
+      $ctrl.confirmationMessage = null;
+      $ctrl.signUpForm.menuItem.$setValidity("menuItem", true);
       menuService.getMenuItemByShortName(userData.menuItem).then(
         function(response){
-          return {status:true, data: response.data}
+          var result = response.data;
+          myInfoService.saveUserData(result);
+          $ctrl.confirmationMessage = "Your information have been saved";
         },
         function(){
-          // $ctrl.signUpForm.menuItem.$invalid=true;
+          $ctrl.signUpForm.menuItem.$setValidity("menuItem", false);
         }
       )
     }
