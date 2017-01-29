@@ -16,11 +16,11 @@ angular.module('Chosen', [])
       console.log("serviceOptions: oldVal, newVal: " ,oldVal, newVal);
       element.trigger('chosen:updated');
     });
-    scope.$watch(attr.chosen, function(oldVal, newVal) {
-         console.log("oldVal, newVal: " ,oldVal, newVal);
-         element.trigger('chosen:updated');
-     });
+
+
+
       element.chosen();
+
   }
 
   return {

@@ -13,20 +13,29 @@
 
   <body ng-controller="MainCtrl">
 
-    <div>Service : {{service | json}}</div>
-
-
+<div>Service : {{service | json}}</div>
 <div ng-repeat="i in [1, 2, 3, 4]">
     <div style="margin-top: 10px;">
       <select name="service_id" class="chosen-select"  multiple chosen
       style="width: 170px;" ng-model="service"
       ng-options="service.name for service in serviceOptions"
           data-placeholder="Select Service...">
+      </select>
+    </div>
+</div>
+
+<div>Service : {{serviceSingl | json}}</div>
 
 
-         </select>
-      <div>
-        <div>
+<div style="margin-top: 10px;">
+  <select name="service_id" class="chosen-select"  multiple chosen
+  style="width: 170px;" ng-model="serviceSingl"
+  ng-options="service.name for service in serviceOptions"
+      data-placeholder="Select Service...">
+  </select>
+</div>
+
+
   </body>
 
 </html>
