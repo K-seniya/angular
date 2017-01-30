@@ -3,5 +3,8 @@
   <a ui-sref="public.signup">Sign up Now!</a>
   </h1>
   <div ng-if="myInfoCtrl.isUserRegistered">
-  {{myInfoCtrl.userData}}</div>
+    <h2>Hello {{myInfoCtrl.userData.personalData.firstname}} {{myInfoCtrl.userData.personalData.secondname}}</h2>
+    <div>Your favorite menu item is:</div>
+    <menu-item menu-item="myInfoCtrl.userData.menuItemData">
+    </menu-item>
 </div>

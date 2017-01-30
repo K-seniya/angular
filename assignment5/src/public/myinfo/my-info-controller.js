@@ -20,7 +20,7 @@ MyInfoController.$inject = ['$scope', 'MyInfoService']
         ctrl.userData = userData.data;
       }
 
-    }
+    };
 
 
   }

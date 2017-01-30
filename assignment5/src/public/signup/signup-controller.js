@@ -7,15 +7,19 @@
   SignUpController.$inject = ['MenuService', 'MyInfoService']
   function SignUpController(menuService, myInfoService) {
     var $ctrl = this;
+    var menuItem;
 
     $ctrl.submit = function (userData) {
       $ctrl.confirmationMessage = null;
-      $ctrl.signUpForm.menuItem.$setValidity("menuItem", true);
-      menuService.getMenuItemByShortName(userData.menuItem).then(
+      myInfoService.saveUserData(menuItem, userData);
+      $ctrl.confirmationMessage = "Your information have been saved";
+    };
+
+    $ctrl.validateMenuItem = function (element) {
+      menuService.getMenuItemByShortName($ctrl.user.menuItem).then(
         function(response){
-          var result = response.data;
-          myInfoService.saveUserData(result);
-          $ctrl.confirmationMessage = "Your information have been saved";
+          menuItem = response.data;
+          $ctrl.signUpForm.menuItem.$setValidity("menuItem", true);
         },
         function(){
           $ctrl.signUpForm.menuItem.$setValidity("menuItem", false);

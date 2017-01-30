@@ -7,9 +7,8 @@
     function MyInfoService() {
       var service = this;
 
-      service.saveUserData = function (data){
-        service.userData = data;
-        console.log("User data was saved: ", data);
+      service.saveUserData = function (foodData, userData){
+        service.userData = {menuItemData: foodData, personalData: userData};
       }
 
       service.getUserData = function (data) {

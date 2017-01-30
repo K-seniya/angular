@@ -5,7 +5,7 @@
       <form name='signUpCtrl.signUpForm' novalidate>
 
         <input type="text" name="firstname" placeholder="First name"
-          ng-model="reg.user.firstname"
+          ng-model="signUpCtrl.user.firstname"
           required
           minlength="4"
           ng-maxlength="10">
@@ -21,7 +21,7 @@
          <br>
 
           <input type="text" name="secondname" placeholder="Second name"
-            ng-model="reg.user.secondname"
+            ng-model="signUpCtrl.user.secondname"
             required
             minlength="4"
             ng-maxlength="10">
@@ -36,7 +36,7 @@
             <br>
 
             <input type="email" name="email" placeholder="Email"
-              ng-model="reg.user.email"
+              ng-model="signUpCtrl.user.email"
               required>
               <span ng-if="signUpCtrl.signUpForm.email.$invalid && signUpCtrl.signUpForm.email.$touched">
                 Must be a valid email address: handle@domain format
@@ -44,22 +44,22 @@
               <br>
 
               <input type="text" name="phone" placeholder="Phone ###-###-####"
-                ng-model="reg.user.phone"
+                ng-model="signUpCtrl.user.phone"
                 pattern="(\d{3})-(\d{3})-(\d{4})">
                 <span ng-if="signUpCtrl.signUpForm.phone.$invalid && signUpCtrl.signUpForm.phone.$touched">
                   Phone must be in the format ###-###-####.
                 </span>
                 <br>
 
-                <input type="text" name="menuItem" placeholder="Favorite dish code"
-                  ng-model="reg.user.menuItem" required>
+                <input type="text" name="menuItem" placeholder="Favorite dish code" ng-change="signUpCtrl.validateMenuItem(this)"
+                  ng-model="signUpCtrl.user.menuItem" required>
                   <span ng-if="signUpCtrl.signUpForm.menuItem.$invalid && signUpCtrl.signUpForm.menuItem.$touched">
                     Provide correct dish code
                   </span>
                   <br>
 
                   <button
-                    ng-click="signUpCtrl.submit(reg.user)">Submit</button>
+                    ng-click="signUpCtrl.submit(signUpCtrl.user)">Submit</button>
 
       </form>
       <div>{{signUpCtrl.confirmationMessage}}</div>
